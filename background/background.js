@@ -4,16 +4,6 @@
 
 var strippedParams = [ "utm_source", "utm_medium", "utm_campaign", "utm_term"]
 
-var filter = {
-  url:
-  [
-    {queryContains: "utm_source"},
-    {queryContains: "utm_medium"},
-    {queryContains: "utm_campaign"},
-    {queryContains: "utm_term"}
-  ]
-}
-
 function removeParam(key, sourceURL) {
     var rtn = sourceURL.split("?")[0],
         param,
@@ -33,40 +23,23 @@ function removeParam(key, sourceURL) {
 }
 
 function stripUtm(url) {
-  console.log("stripUtm url: " + url);
-
   var alteredUrl = url;
-  for (var key in strippedParams) {
+  for (var i in strippedParams) {
+    var key = strippedParams[i];
     alteredUrl = removeParam(key, alteredUrl);
   }
 
   if (alteredUrl !== url) {
-    console.log("Stripped: " + url + " -> " + alteredUrl);
+    console.log("Stripped url to: " + alteredUrl);
     return alteredUrl;
   }
 }
 
-function onUpdated(tab) {
-  console.log(`Updated tab: ${tab.id}`);
-}
-
-function onError(error) {
-  console.log(`Error: ${error}`);
-}
-
-function handleUpdate(tabId, changeInfo, tabInfo) {
-  if (changeInfo.url) {
-    console.log("Tab: " + tabId + " URL changed to " + changeInfo.url);
-    var targetUrl = stripUtm(changeInfo.url);
-    if (typeof targetUrl !== 'undefined') {
-      console.log("Rewriting tab url to: " + targetUrl);
-      var updating = browser.tabs.update({url: targetUrl});
-      updating.then(onUpdated, onError);
-
-    }
+function onBeforeRequest(details) {
+  var targetUrl = stripUtm(details.url);
+  if (typeof targetUrl !== 'undefined') {
+    return {redirectUrl: targetUrl};
   }
 }
 
-browser.tabs.onUpdated.addListener(
-  handleUpdate
-);
+browser.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["*://*/*"]}, ["blocking"]);
