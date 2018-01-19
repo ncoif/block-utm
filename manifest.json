@@ -7,7 +7,7 @@
   "description": "Rewrite urls to remove utm tracking",
 
   "permissions": [
-    "webNavigation",
+    "activeTab",
     "<all_urls>"
   ],
 

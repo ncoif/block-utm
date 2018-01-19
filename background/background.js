@@ -32,21 +32,41 @@ function removeParam(key, sourceURL) {
     return rtn;
 }
 
-function stripUtm(details) {
-  console.log("onBeforeNavigate to: : " + details.url);
+function stripUtm(url) {
+  console.log("stripUtm url: " + url);
 
-  var alteredUrl = details.url;
+  var alteredUrl = url;
   for (var key in strippedParams) {
     alteredUrl = removeParam(key, alteredUrl);
   }
 
-  if (alteredUrl !== details.url) {
-    console.log("Stripped: " + details.url + " -> " + alteredUrl)
+  if (alteredUrl !== url) {
+    console.log("Stripped: " + url + " -> " + alteredUrl);
+    return alteredUrl;
   }
-  //find a way to rewrite it
 }
 
-browser.webNavigation.onBeforeNavigate.addListener(
-  stripUtm,
-  filter
+function onUpdated(tab) {
+  console.log(`Updated tab: ${tab.id}`);
+}
+
+function onError(error) {
+  console.log(`Error: ${error}`);
+}
+
+function handleUpdate(tabId, changeInfo, tabInfo) {
+  if (changeInfo.url) {
+    console.log("Tab: " + tabId + " URL changed to " + changeInfo.url);
+    var targetUrl = stripUtm(changeInfo.url);
+    if (typeof targetUrl !== 'undefined') {
+      console.log("Rewriting tab url to: " + targetUrl);
+      var updating = browser.tabs.update({url: targetUrl});
+      updating.then(onUpdated, onError);
+
+    }
+  }
+}
+
+browser.tabs.onUpdated.addListener(
+  handleUpdate
 );
