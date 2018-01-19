@@ -1,0 +1,19 @@
+{
+
+  "manifest_version": 2,
+  "name": "block-utm",
+  "version": "1.0",
+
+  "description": "Rewrite urls to remove utm tracking",
+
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>"
+  ],
+
+  "background": {
+    "scripts": ["background/background.js"]
+  }
+
+}
