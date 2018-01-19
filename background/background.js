@@ -2,7 +2,13 @@
 //https://www.theguardian.com/politics/2018/jan/18/taxpayers-to-foot-200bn-bill-for-pfi-contracts-audit-office
 //?utm_source=esp&utm_medium=Email&utm_campaign=GU+Today+main+NEW+H+categories&utm_term=260850&subid=22703671&CMP=EMCNEWEML6619I2
 
-var strippedParams = [ "utm_source", "utm_medium", "utm_campaign", "utm_term"]
+var strippedParams = [
+  "utm_source",   // This is the source of the link Example: Search Engine, another domain, or name of email list
+  "utm_medium",   // This is the method of delivery. EX: Postcard, Email, or Banner Ad
+  "utm_campaign", // This is a name that helps you keep track of your different campaign efforts Example: Fall_Drive, Christmas_Special
+  "utm_term",     // This is a used to identify paid keywords. Example: speakers, monitors, shoes
+  "utm_content"   // This is for split testing or separating two ads that go to the same URL
+]
 
 function removeParam(key, sourceURL) {
     var rtn = sourceURL.split("?")[0],
