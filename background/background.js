@@ -4,6 +4,16 @@
 
 var strippedParams = [ "utm_source", "utm_medium", "utm_campaign", "utm_term"]
 
+var filter = {
+  url:
+  [
+    {queryContains: "utm_source"},
+    {queryContains: "utm_medium"},
+    {queryContains: "utm_campaign"},
+    {queryContains: "utm_term"}
+  ]
+}
+
 function removeParam(key, sourceURL) {
     var rtn = sourceURL.split("?")[0],
         param,
@@ -22,24 +32,21 @@ function removeParam(key, sourceURL) {
     return rtn;
 }
 
-function stripUtm(requestDetails) {
-  console.log("Received requestDetails: " + requestDetails.url);
+function stripUtm(details) {
+  console.log("onBeforeNavigate to: : " + details.url);
 
-  var alteredUrl = requestDetails.url;
+  var alteredUrl = details.url;
   for (var key in strippedParams) {
     alteredUrl = removeParam(key, alteredUrl);
   }
 
-  if (alteredUrl !== requestDetails.url) {
-    console.log("Stripped: " + requestDetails.url + " -> " + alteredUrl)
+  if (alteredUrl !== details.url) {
+    console.log("Stripped: " + details.url + " -> " + alteredUrl)
   }
-  return {
-    redirectUrl: alteredUrl
-  };
+  //find a way to rewrite it
 }
 
-browser.webRequest.onBeforeRequest.addListener(
+browser.webNavigation.onBeforeNavigate.addListener(
   stripUtm,
-  {urls:["<all_urls>"]},
-  ["blocking"]
+  filter
 );
