@@ -16,6 +16,13 @@
     "<all_urls>"
   ],
 
+  "browser_action": {
+    "browser_style": false,
+    "default_icon": "icons/utm-blocker-32.png",
+    "default_title": "Utm Blocker",
+    "default_popup": "popup/popup.html"
+  },
+
   "background": {
     "scripts": ["background/background.js"]
   }
