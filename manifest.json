@@ -6,6 +6,10 @@
 
   "description": "Rewrite urls to remove utm tracking",
 
+  "icons": {
+      "48": "icons/utm-blocker-48.png"
+    },
+
   "permissions": [
     "webRequest",
     "webRequestBlocking",

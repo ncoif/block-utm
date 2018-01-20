@@ -2,6 +2,8 @@
 //https://www.theguardian.com/politics/2018/jan/18/taxpayers-to-foot-200bn-bill-for-pfi-contracts-audit-office
 //?utm_source=esp&utm_medium=Email&utm_campaign=GU+Today+main+NEW+H+categories&utm_term=260850&subid=22703671&CMP=EMCNEWEML6619I2
 
+var isExtensionEnabled = true;
+
 var strippedParams = [
   "utm_source",   // This is the source of the link Example: Search Engine, another domain, or name of email list
   "utm_medium",   // This is the method of delivery. EX: Postcard, Email, or Banner Ad
@@ -42,6 +44,11 @@ function stripUtm(url) {
 }
 
 function onBeforeRequest(details) {
+  // if the extension has been disabled by the user, return directly
+  if (!isExtensionEnabled) {
+    return;
+  }
+
   var targetUrl = stripUtm(details.url);
   if (typeof targetUrl !== 'undefined') {
     return {redirectUrl: targetUrl};
