@@ -17,6 +17,14 @@ function initializeOptions(){
   });
 }
 
+browser.storage.onChanged.addListener(async function(changes, areaName) {
+  if (areaName === 'sync' || areaName === 'local') {
+    if ('globalEnabled' in changes) {
+      isExtensionEnabled = changes.globalEnabled.newValue;
+    }
+  }
+});
+
 var strippedParams = [
   "utm_source",   // This is the source of the link Example: Search Engine, another domain, or name of email list
   "utm_medium",   // This is the method of delivery. EX: Postcard, Email, or Banner Ad
