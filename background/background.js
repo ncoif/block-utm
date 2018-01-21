@@ -1,8 +1,21 @@
 
+async function initialize() {
+  await initializeOptions();
+}
+initialize();
+
 //https://www.theguardian.com/politics/2018/jan/18/taxpayers-to-foot-200bn-bill-for-pfi-contracts-audit-office
 //?utm_source=esp&utm_medium=Email&utm_campaign=GU+Today+main+NEW+H+categories&utm_term=260850&subid=22703671&CMP=EMCNEWEML6619I2
 
 var isExtensionEnabled = true;
+
+function initializeOptions(){
+  return new Promise(resolve => {
+    browser.storage.local.get("globalEnabled", function(item) {
+      isExtensionEnabled = item.globalEnabled;
+    });
+  });
+}
 
 var strippedParams = [
   "utm_source",   // This is the source of the link Example: Search Engine, another domain, or name of email list
