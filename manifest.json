@@ -7,7 +7,7 @@
   "description": "Rewrite urls to remove utm tracking",
 
   "icons": {
-      "48": "icons/utm-blocker-48.png"
+      "48": "icons/icon-active-48.png"
     },
 
   "permissions": [
@@ -19,7 +19,7 @@
 
   "browser_action": {
     "browser_style": false,
-    "default_icon": "icons/utm-blocker-32.png",
+    "default_icon": "icons/icon-active-32.png",
     "default_title": "Utm Blocker",
     "default_popup": "popup/popup.html"
   },

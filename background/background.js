@@ -13,7 +13,30 @@ function initializeOptions(){
   return new Promise(resolve => {
     browser.storage.local.get("globalEnabled", function(item) {
       isExtensionEnabled = item.globalEnabled;
+      updateIconState();
     });
+  });
+}
+
+function updateIconState() {
+  if (!browser.tabs) return;
+
+  let iconState = 'active';
+
+  if (!isExtensionEnabled) {
+    iconState = 'disabled';
+  }
+
+  if ('setIcon' in chrome.browserAction) {
+    browser.browserAction.setIcon({
+      path: {
+        38: '../icons/icon-' + iconState + '-32.png'
+      }
+    });
+  }
+
+  browser.browserAction.setTitle({
+    title: 'Utm Blocker ' + ((iconState === 'active') ? '' : ' (' + iconState + ')')
   });
 }
 
@@ -21,6 +44,7 @@ browser.storage.onChanged.addListener(async function(changes, areaName) {
   if (areaName === 'sync' || areaName === 'local') {
     if ('globalEnabled' in changes) {
       isExtensionEnabled = changes.globalEnabled.newValue;
+      updateIconState();
     }
   }
 });
