@@ -1,0 +1,6 @@
+target/
+exclude.txt
+*.sh
+*.xcf
+.*
+*.md
