@@ -6,6 +6,11 @@
 
   "description": "Rewrite urls to remove utm tracking",
 
+  "developer": {
+    "name": "ncoif",
+    "url": "https://github.com/ncoif/block-utm"
+  },
+
   "icons": {
       "48": "icons/icon-active-48.png"
     },
