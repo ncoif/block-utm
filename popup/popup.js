@@ -20,4 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Set up the enabled/disabled switch
   updateEnabledDisabledUI();
   document.getElementById('onoffswitch').addEventListener('click', toggleEnabledDisabled);
+
+  // Print the extension's current version.
+  var the_manifest = chrome.runtime.getManifest();
+  var version_info = document.getElementById('current-version');
+  version_info.innerText = the_manifest.version;
 });

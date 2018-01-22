@@ -39,3 +39,10 @@ header > h1 {
   margin: 0;
   padding: 21px 0 13px;
 }
+
+footer {
+  border-top: 1px solid #eee;
+  margin-top: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}

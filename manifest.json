@@ -2,7 +2,7 @@
 
   "manifest_version": 2,
   "name": "block-utm",
-  "version": "1.0",
+  "version": "2018-01-22",
 
   "description": "Rewrite urls to remove utm tracking",
 
